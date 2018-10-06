@@ -10,3 +10,19 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggplot2)
 ```
+
+
+## Problem 1
+```{r Importing data}
+# Importing data from guthub website
+devtools::install_github("p8105/p8105.datasets")
+library(p8105.datasets)
+data(brfss_smart2010, package = "p8105.datasets")
+```
+
+```{r Data manipulation}
+brfss_smart2010 = 
+  brfss_smart2010 %>%
+  janitor::clean_names() # Change upper-case letter to lower-case letter
+```
+
