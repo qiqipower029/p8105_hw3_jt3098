@@ -23,6 +23,16 @@ data(brfss_smart2010, package = "p8105.datasets")
 ```{r Data manipulation}
 brfss_smart2010 = 
   brfss_smart2010 %>%
-  janitor::clean_names() # Change upper-case letter to lower-case letter
+  janitor::clean_names() %>% # Change upper-case letter to lower-case letter
+  filter(topic == "Overall Health")
+```
+
+## Problem 2
+```{r Importing data for problem 2}
+data("instacart", package = "p8106.datasets")
+```
+
+```{r manipulation of intstacart}
+
 ```
 
