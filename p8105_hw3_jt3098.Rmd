@@ -24,7 +24,7 @@ data(brfss_smart2010, package = "p8105.datasets")
 brfss_smart2010 = 
   brfss_smart2010 %>%
   janitor::clean_names() %>% # Change upper-case letter to lower-case letter
-  filter(topic == "Overall Health")
+  filter(topic == "Overall Health") # Focus on the topic of Overall Health
 ```
 
 ## Problem 2
@@ -32,7 +32,20 @@ brfss_smart2010 =
 data("instacart", package = "p8106.datasets")
 ```
 
-```{r manipulation of intstacart}
+```{r intstacart questions}
+# Calculate the number of aisles
+n_aisle = 
+  instacart %>%
+  distinct(aisle) %>%
+  nrow()
 
+# Count the most ordered aisle
+count_(instacart, 'aisle', sort = TRUE)
 ```
 
+About this dataset:
+
+* This instacart dataset has 15 variables in total. It includes user ID, product ID, order number, order hour of day, days since prior order, etc.
+* The mean of order hour of day is `r mean(instacart$order_hour_of_day, rm.na = TRUE)`, and the standard deviation of order hour of day is `r sd(instacart$order_hour_of_day)`.
+* The mean of days since prior order is `r mean(instacart$days_since_prior_order, rm.na = TRUE)`, and the standard deviation of days since prior order is `r sd(instacart$days_since_prior_order)`.
+* The number of aisle is `r n_aisle`, and the aisle that most items ordered from is fresh vegetables with 150609 orders.
