@@ -20,7 +20,7 @@ library(p8105.datasets)
 data(brfss_smart2010, package = "p8105.datasets")
 ```
 
-# Data Manipulation
+
 ```{r Data Tidying}
 brfss_smart2010 = 
   brfss_smart2010 %>%
@@ -29,11 +29,22 @@ brfss_smart2010 =
   filter(response %in% c("Excellent", "Very Good", "Good", "Fair", "Poor"))
 ```
 
-# Convert variable "response" from character to factor
+
 ```{r convertion of "response"}
 brfss_smart2010$response = factor(brfss_smart2010$response, 
                                   levels = c("Excellent", "Very Good", "Good", "Fair", "Poor"))
 ```
+
+```{r Questions for problem 1}
+brfss_smart2002 = 
+  brfss_smart2010 %>%
+  filter(year == "2002") %>%
+  group_by(locationabbr) %>%
+  summarise(n_observed_location = n_distinct(geo_location)) %>%
+  filter(n_observed_location == 7)
+```
+
+In 2002, there 3 states observed in 7 locations. They are Connecticut (CT), Florida (FL), and North Carolina (NC).
 
 ## Problem 2
 ```{r Importing data for problem 2}
