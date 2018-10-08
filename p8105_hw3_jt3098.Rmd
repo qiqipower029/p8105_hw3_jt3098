@@ -29,7 +29,7 @@ brfss_smart2010 =
 
 ## Problem 2
 ```{r Importing data for problem 2}
-data("instacart", package = "p8106.datasets")
+data("instacart", package = "p8105.datasets")
 ```
 
 ```{r intstacart questions}
@@ -49,3 +49,18 @@ About this dataset:
 * The mean of order hour of day is `r mean(instacart$order_hour_of_day, rm.na = TRUE)`, and the standard deviation of order hour of day is `r sd(instacart$order_hour_of_day)`.
 * The mean of days since prior order is `r mean(instacart$days_since_prior_order, rm.na = TRUE)`, and the standard deviation of days since prior order is `r sd(instacart$days_since_prior_order)`.
 * The number of aisle is `r n_aisle`, and the aisle that most items ordered from is fresh vegetables with 150609 orders.
+
+```{r plots of number of items ordered in each aisle}
+instacart %>%
+  group_by(aisle) %>%
+  summarise(total_aisle = n()) %>%
+  ggplot(aes(x = aisle, y = total_aisle)) +
+  geom_point() +
+  labs(
+    x = "Aisle Names",
+    y = "Number of Items Ordered",
+    title = "Number of Items Ordered in Each Aisle"
+  ) +
+  theme_bw()
+```
+
