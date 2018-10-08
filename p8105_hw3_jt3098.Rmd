@@ -20,11 +20,19 @@ library(p8105.datasets)
 data(brfss_smart2010, package = "p8105.datasets")
 ```
 
-```{r Data manipulation}
+# Data Manipulation
+```{r Data Tidying}
 brfss_smart2010 = 
   brfss_smart2010 %>%
   janitor::clean_names() %>% # Change upper-case letter to lower-case letter
-  filter(topic == "Overall Health") # Focus on the topic of Overall Health
+  filter(topic == "Overall Health") %>% # Focus on the topic of Overall Health
+  filter(response %in% c("Excellent", "Very Good", "Good", "Fair", "Poor"))
+```
+
+# Convert variable "response" from character to factor
+```{r convertion of "response"}
+brfss_smart2010$response = factor(brfss_smart2010$response, 
+                                  levels = c("Excellent", "Very Good", "Good", "Fair", "Poor"))
 ```
 
 ## Problem 2
