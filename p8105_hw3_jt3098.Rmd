@@ -46,6 +46,20 @@ brfss_smart2002 =
 
 In 2002, there 3 states observed in 7 locations. They are Connecticut (CT), Florida (FL), and North Carolina (NC).
 
+```{r Spaghetti plot}
+brfss_smart2010 %>%
+  group_by(locationabbr, year) %>%
+  summarise(n_observation = sum(sample_size)) %>%
+  ggplot(aes(x = year, y = n_observation, color = locationabbr)) +
+  geom_line(alpha = 0.5) +
+  labs(
+    title = "Observation Times of Each States from 2002 to 2010",
+    y = "Observation Times",
+    x = "Year"
+  ) + 
+  theme_bw()
+```
+
 ## Problem 2
 ```{r Importing data for problem 2}
 data("instacart", package = "p8105.datasets")
