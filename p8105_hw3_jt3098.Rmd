@@ -13,9 +13,9 @@ library(ggplot2)
 
 ```{r Plots setting, include=FALSE}
 knitr::opts_chunk$set(
-  fig.width = 6,
+  fig.width = 8,
   fig.asp = .6,
-  out.width = "80%"
+  out.width = "100%"
 )
 ```
 
@@ -90,6 +90,9 @@ ggplot(brfss_prop_each, aes(x = year, y = average_proportion, color = locationab
     x = "Year",
     y = "Average Proportion"
   ) +
+  scale_x_continuous(
+    breaks = c(2004, 2008),
+    labels = c("2004", "2008")) +
   theme_bw()
 ```
 
@@ -118,14 +121,18 @@ About this dataset:
 
 ```{r plots of number of items ordered in each aisle}
 instacart %>%
-  group_by(aisle) %>%
+  group_by(aisle_id) %>%
   summarise(total_aisle = n()) %>%
-  ggplot(aes(x = aisle, y = total_aisle)) +
-  geom_point() +
+  ggplot(aes(x = aisle_id, y = total_aisle)) +
+  geom_point(alpha = 0.5) +
   labs(
-    x = "Aisle Names",
+    x = "Aisle ID",
     y = "Number of Items Ordered",
     title = "Number of Items Ordered in Each Aisle"
+  ) +
+  scale_x_continuous(
+    breaks = c(0, 25, 50, 75, 100, 125, 150),
+    labels = c("0", "25", "50", "75", "100", "125", "150")
   ) +
   theme_bw()
 ```
