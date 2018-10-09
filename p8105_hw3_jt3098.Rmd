@@ -148,3 +148,13 @@ pop_items_aisle =
   filter(number_of_items == max(number_of_items))
 ```
 
+```{r Mean hour of the day}
+mean_hour_of_day_table = 
+  instacart %>%
+  filter(product_name %in% c("Pink Lady Apples", "Coffee Ice Cream")) %>%
+  group_by(product_name, order_dow) %>%
+  summarise(mean_hour_of_a_day = mean(order_hour_of_day)) %>%
+  spread(key = order_dow, value = mean_hour_of_a_day) %>%
+  `colnames<-`(c("Product Name", "Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"))
+```
+
