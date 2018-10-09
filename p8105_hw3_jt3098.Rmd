@@ -68,6 +68,8 @@ brfss_smart2010 %>%
   theme_bw()
 ```
 
+Comments:
+
 ```{r Table for "Excellent" proportion sd and mean}
 brfss_prop_020610 = 
   brfss_smart2010 %>%
@@ -75,6 +77,8 @@ brfss_prop_020610 =
   group_by(year) %>%
   summarise(mean = mean(data_value), standard_deviation = sd(data_value))
 ```
+
+Comments:
 
 ```{r Five-panel Plot}
 brfss_prop_each = 
@@ -95,6 +99,8 @@ ggplot(brfss_prop_each, aes(x = year, y = average_proportion, color = locationab
     labels = c("2004", "2008")) +
   theme_bw()
 ```
+
+Comments:
 
 ## Problem 2
 ```{r Importing data for problem 2}
@@ -139,6 +145,8 @@ instacart %>%
   theme_bw()
 ```
 
+Comments:
+
 ```{r Most popular item aisles}
 pop_items_aisle = 
   instacart %>%
@@ -148,6 +156,8 @@ pop_items_aisle =
   filter(number_of_items == max(number_of_items))
 ```
 
+Comments: The most popular item in aisle "baking ingredients" is Light Brown Sugar with 499 orders; while the Snack Stick Chicken & Rice Recipe Dog Treats is ordered most in "dog food care" with 30 times, and Organic Baby Spinach is ordered most in "packaged vegetables fruits" with 9794 times.
+
 ```{r Mean hour of the day}
 mean_hour_of_day_table = 
   instacart %>%
@@ -156,5 +166,17 @@ mean_hour_of_day_table =
   summarise(mean_hour_of_a_day = mean(order_hour_of_day)) %>%
   spread(key = order_dow, value = mean_hour_of_a_day) %>%
   `colnames<-`(c("Product Name", "Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"))
+```
+
+Comments: For both Coffee Ice Crean and Pink Lady Apples, Sunday and Saturday have the highest mean order hour within this week. Generally speaking, Coffee Ice Cream has a longer order hour than Pink Lady Appples on each day of this week.
+
+## Problem 3
+```{r Importing data for problem 3}
+data("ny_noaa")
+
+ny_noaa = 
+  ny_noaa %>%
+  mutate()
+  
 ```
 
