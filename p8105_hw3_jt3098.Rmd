@@ -124,16 +124,27 @@ instacart %>%
   group_by(aisle_id) %>%
   summarise(total_aisle = n()) %>%
   ggplot(aes(x = aisle_id, y = total_aisle)) +
-  geom_point(alpha = 0.5) +
+  geom_point(alpha = 0.4) +
   labs(
     x = "Aisle ID",
     y = "Number of Items Ordered",
-    title = "Number of Items Ordered in Each Aisle"
+    title = "Number of Items Ordered in Each Aisle",
+    caption = "The aisle name corresponded to the aisle ID can be found in Tablei `instacart`."
+
   ) +
   scale_x_continuous(
     breaks = c(0, 25, 50, 75, 100, 125, 150),
     labels = c("0", "25", "50", "75", "100", "125", "150")
   ) +
   theme_bw()
+```
+
+```{r Most popular item aisles}
+pop_items_aisle = 
+  instacart %>%
+  filter(aisle %in% c("baking ingredients", "dog food care", "packaged vegetables fruits")) %>%
+  group_by(aisle, product_name) %>%
+  summarise(number_of_items = n()) %>%
+  filter(number_of_items == max(number_of_items))
 ```
 
