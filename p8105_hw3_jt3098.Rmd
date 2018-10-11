@@ -135,7 +135,7 @@ instacart %>%
     x = "Aisle ID",
     y = "Number of Items Ordered",
     title = "Number of Items Ordered in Each Aisle",
-    caption = "The aisle name corresponded to the aisle ID can be found in Tablei `instacart`."
+    caption = "The aisle name corresponded to the aisle ID can be found in Table `instacart`."
 
   ) +
   scale_x_continuous(
@@ -176,7 +176,7 @@ data("ny_noaa")
 
 ny_noaa = 
   ny_noaa %>%
-  mutate()
-  
+  janitor::clean_names() %>%
+  separate(col = date, into = c("year", "month", "day"), sep = "-")
 ```
 
