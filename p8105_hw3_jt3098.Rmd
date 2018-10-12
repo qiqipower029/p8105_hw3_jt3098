@@ -179,10 +179,9 @@ Comments: For both Coffee Ice Crean and Pink Lady Apples, Sunday and Saturday ha
 
 ## Problem 3
 ```{r Importing data for problem 3}
-data("ny_noaa")
+data("ny_noaa", package = "p8105.datasets")
 n_row = nrow(ny_noaa)
 n_col = ncol(ny_noaa)
-View(ny_noaa)
 ny_noaa = 
   ny_noaa %>%
   janitor::clean_names() %>%
@@ -201,7 +200,7 @@ Description of the dataset:
 
 * The size of the dataset is that it has `r n_row` rows and `r n_col` columns.
 * It provides information about record ID, date of observation, precipitation, snowfalls, snow depth, the minimum temperature and the maximum temperature of day, etc.
-* The average precipitation from 1981 to 2010 is `r mean(prcp)`, and the standard deviation for the precipitation from 1981 to 2010 is `r sd(prcp)`.
+* The average precipitation from 1981 to 2010 is `r mean(ny_noaa$prcp, na.rm = TRUE)`, and the standard deviation for the precipitation from 1981 to 2010 is `r sd(ny_noaa$prcp, na.rm = TRUE)`.
 * From the dataset, we could know that, there is no NA in id and dates. There are 145838 NAs in precipitation, 381221 in snow, 591786 in snwd, 1134358 in tman and 1134420 in tmin. If the distribution of NA is concentrated in one or two variables, the missing data could be an issue; if the NAs are distributed relatively evenly in many variables, the missing data might be an issue.
 
 ```{r observed most temperature in snowfall}
