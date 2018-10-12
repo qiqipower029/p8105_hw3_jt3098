@@ -230,7 +230,18 @@ ny_noaa %>%
   theme(legend.position = "none")
 ```
 
+Comments:
+From the two-panel plots we could know the data recorded in each station about the everage maximum temeperature in January and July. We could use spaghetti strcture to show the data, because we need to provide year, average tmax for each station. If we use boxplot, we could be able to see outliers but it could not give us information among stations. Therefore, speghetti structure is the best choice (for me). We could also see the outliers that lies out of the clusters.
+
 ```{r two-panel plot for tmax and tmin}
+ny_noaa %>%
+  filter(!is.na(tmin), !is.na(tmax)) %>%
+  ggplot(aes(x = tmin, y = tmax)) +  
+  geom_hex() +
+  labs(
+    title = ""
+  )
+  theme_bw()
 
 ```
 
