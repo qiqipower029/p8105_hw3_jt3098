@@ -10,6 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggplot2)
 library(hexbin)
+library(ggridges)
 ```
 
 ```{r Plots setting, include=FALSE}
@@ -234,14 +235,27 @@ Comments:
 From the two-panel plots we could know the data recorded in each station about the everage maximum temeperature in January and July. We could use spaghetti strcture to show the data, because we need to provide year, average tmax for each station. If we use boxplot, we could be able to see outliers but it could not give us information among stations. Therefore, speghetti structure is the best choice (for me). We could also see the outliers that lies out of the clusters.
 
 ```{r two-panel plot for tmax and tmin}
-ny_noaa %>%
+temp_dist = 
+  ny_noaa %>%
   filter(!is.na(tmin), !is.na(tmax)) %>%
   ggplot(aes(x = tmin, y = tmax)) +  
   geom_hex() +
+  theme_bw() 
+
+snow_dist = 
+  ny_noaa %>%
+  filter(!is.na(snow)) %>%
+  filter(snow < 100 & snow > 0) %>%
+  mutate(year = as.factor(year)) %>%
+  ggplot(aes(x = snow, y = year)) +
+  geom_density_ridges() +
   labs(
-    title = ""
-  )
+    title = "Distribution of Snowfall > 0 and Snowfall < 100",
+    x = "Snowfall",
+    y = "Year"
+  ) +
   theme_bw()
 
+snow_dist + temp_dist
 ```
 
