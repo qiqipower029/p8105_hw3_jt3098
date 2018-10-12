@@ -11,11 +11,12 @@ library(tidyverse)
 library(ggplot2)
 library(hexbin)
 library(ggridges)
+library(patchwork)
 ```
 
 ```{r Plots setting, include=FALSE}
 knitr::opts_chunk$set(
-  fig.width = 8,
+  fig.width = 10,
   fig.asp = .6,
   out.width = "100%"
 )
@@ -70,7 +71,7 @@ brfss_smart2010 %>%
   theme_bw()
 ```
 
-Comments:
+Comments: From the plot we could know that, most states were not observed greater than 10000 times. From 2002 to 2010, Florida has the highest observation times in 2007. 
 
 ```{r Table for "Excellent" proportion sd and mean}
 brfss_prop_020610 = 
@@ -78,9 +79,10 @@ brfss_prop_020610 =
   filter(year %in% c("2002", "2006", "2010"), response == "Excellent", locationabbr == "NY") %>%
   group_by(year) %>%
   summarise(mean = mean(data_value), standard_deviation = sd(data_value))
+brfss_prop_020610
 ```
 
-Comments:
+Comments: In 2002, the mean proportion of "Excellent" response is the highest (24.0), with the highest standard deviation. In 2010, the standard deviation of mean proportion of "Excellent" reponse is the lowest (3.57). However, in 2006, the mean proportion of "Excellent" response is the lowest (22.5).
 
 ```{r Five-panel Plot}
 brfss_prop_each = 
@@ -102,7 +104,7 @@ ggplot(brfss_prop_each, aes(x = year, y = average_proportion, color = locationab
   theme_bw()
 ```
 
-Comments:
+Comments: In general, the largest proportion of response is "Very good", and "Good" is the second large proportion of response. "Excellent" is the third, while "Fair" and "Poor" are the fourth and fifth.
 
 ## Problem 2
 ```{r Importing data for problem 2}
@@ -111,6 +113,8 @@ data("instacart", package = "p8105.datasets")
 
 ```{r intstacart questions}
 # Calculate the number of aisles
+nrow(instacart)
+ncol(instacart)
 n_aisle = 
   instacart %>%
   distinct(aisle) %>%
@@ -122,6 +126,7 @@ count_(instacart, 'aisle', sort = TRUE)
 
 About this dataset:
 
+* This dataset has 15 columns and 1384617 rows.
 * This instacart dataset has 15 variables in total. It includes user ID, product ID, order number, order hour of day, days since prior order, etc.
 * The mean of order hour of day is `r mean(instacart$order_hour_of_day, rm.na = TRUE)`, and the standard deviation of order hour of day is `r sd(instacart$order_hour_of_day)`.
 * The mean of days since prior order is `r mean(instacart$days_since_prior_order, rm.na = TRUE)`, and the standard deviation of days since prior order is `r sd(instacart$days_since_prior_order)`.
@@ -129,9 +134,9 @@ About this dataset:
 
 ```{r plots of number of items ordered in each aisle}
 instacart %>%
-  group_by(aisle_id) %>%
+  group_by(aisle_id, department) %>%
   summarise(total_aisle = n()) %>%
-  ggplot(aes(x = aisle_id, y = total_aisle)) +
+  ggplot(aes(x = aisle_id, y = total_aisle, color = department)) +
   geom_point(alpha = 0.4) +
   labs(
     x = "Aisle ID",
@@ -144,10 +149,10 @@ instacart %>%
     breaks = c(0, 25, 50, 75, 100, 125, 150),
     labels = c("0", "25", "50", "75", "100", "125", "150")
   ) +
-  theme_bw()
+  theme_bw() 
 ```
 
-Comments:
+Comments: Mostly, the number of items ordered in each aisle is less than 100000. However, there are still two aisle that has number of items ordered greater than 150000. They are #24 aisle "fresh fruits" and #83 aisle "fresh vegetables", both of which are from produce department.
 
 ```{r Most popular item aisles}
 pop_items_aisle = 
@@ -238,8 +243,11 @@ From the two-panel plots we could know the data recorded in each station about t
 temp_dist = 
   ny_noaa %>%
   filter(!is.na(tmin), !is.na(tmax)) %>%
-  ggplot(aes(x = tmin, y = tmax)) +  
+  ggplot(aes(x = tmin, y = tmax)) +
   geom_hex() +
+  labs(
+    title = "Distribution of tmin and tmax from 1981 to 2010"
+  ) +
   theme_bw() 
 
 snow_dist = 
@@ -259,3 +267,4 @@ snow_dist =
 snow_dist + temp_dist
 ```
 
+Comments: In general, the distribution of snowfall value in each year has a similar shape with very slight difference. However, in the distribution of tmax and tmin, there are many outliers. The most observed value for tmax is approximately 0 to 30 ºC, while the most observed value for tmin is -15ºC to 15ºC.
