@@ -190,9 +190,10 @@ ny_noaa =
 Description of the dataset:
 
 * The size of the dataset is that it has `r n_row` rows and `r n_col` columns.
-* It provides information about record ID, date, precipitation, snowfalls, the minimum temperature and the maximum temperature of day, etc.
+* It provides information about record ID, date of observation, precipitation, snowfalls, snow depth, the minimum temperature and the maximum temperature of day, etc.
+* The average precipitation from 1981 to 2010 is `r mean(prcp)`, and the standard deviation for the precipitation from 1981 to 2010 is `r sd(prcp)`.
 
-```{r observed most in snowfall}
+```{r observed most temperature in snowfall}
 ny_noaa %>%
   filter(!is.na(snow)) %>%
   group_by(snow) %>%
@@ -201,3 +202,19 @@ ny_noaa %>%
 ```
 
 * The most observed temperature for snawfall is 0, because 0 is the melting point for ice. It would lasts for a longer time than other temperatures.
+
+```{r two-panel plot for tmax in Janurary and July}
+ny_noaa %>%
+  filter(month %in% c("01", "07")) %>%
+  group_by(year, month) %>%
+  summarise(average_tmax = mean(tmax, na.rm = TRUE)) %>%
+  ggplot(aes(y = year, x = average_tmax)) +
+  geom_point() +
+  facet_grid(~month) +
+  theme_bw()
+```
+
+```{r two-panel plot for tmax and tmin}
+
+```
+
