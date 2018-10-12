@@ -173,10 +173,31 @@ Comments: For both Coffee Ice Crean and Pink Lady Apples, Sunday and Saturday ha
 ## Problem 3
 ```{r Importing data for problem 3}
 data("ny_noaa")
-
+n_row = nrow(ny_noaa)
+n_col = ncol(ny_noaa)
+View(ny_noaa)
 ny_noaa = 
   ny_noaa %>%
   janitor::clean_names() %>%
-  separate(col = date, into = c("year", "month", "day"), sep = "-")
+  separate(col = date, into = c("year", "month", "day"), sep = "-") %>%
+  mutate(
+    tmax = as.double(tmax) / 10,
+    tmin = as.double(tmin) / 10,
+    prcp = prcp / 10
+  )
 ```
 
+Description of the dataset:
+
+* The size of the dataset is that it has `r n_row` rows and `r n_col` columns.
+* It provides information about record ID, date, precipitation, snowfalls, the minimum temperature and the maximum temperature of day, etc.
+
+```{r observed most in snowfall}
+ny_noaa %>%
+  filter(!is.na(snow)) %>%
+  group_by(snow) %>%
+    summarise(n_value = n()) %>%
+    filter(n_value == max(n_value))
+```
+
+* The most observed temperature for snawfall is 0, because 0 is the melting point for ice. It would lasts for a longer time than other temperatures.
