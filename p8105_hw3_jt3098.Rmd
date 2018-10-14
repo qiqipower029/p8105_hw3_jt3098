@@ -258,7 +258,7 @@ snow_dist =
   geom_density_ridges() +
   labs(
     title = "Distribution of Snowfall > 0 and Snowfall < 100",
-    x = "Snowfall",
+    x = "Snowfall (mm)",
     y = "Year"
   ) +
   theme_bw()
