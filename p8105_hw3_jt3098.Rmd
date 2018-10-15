@@ -238,7 +238,7 @@ ny_noaa %>%
   geom_point(alpha = 0.4) +
   facet_grid(~month) +
   theme_bw() +
-  theme(legend.position = "none")
+  theme(legend.position = "none") # Delete the legend
 ```
 
 Comments:
