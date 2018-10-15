@@ -161,9 +161,10 @@ pop_items_aisle =
   group_by(aisle, product_name) %>%
   summarise(number_of_items = n()) %>%
   filter(number_of_items == max(number_of_items))
+pop_items_aisle
 ```
 
-Comments: The most popular item in aisle "baking ingredients" is Light Brown Sugar with 499 orders; while the Snack Stick Chicken & Rice Recipe Dog Treats is ordered most in "dog food care" with 30 times, and Organic Baby Spinach is ordered most in "packaged vegetables fruits" with 9794 times.
+Comments: The most popular item in aisle "baking ingredients" is Light Brown Sugar with 499 orders; while the Snack Stick Chicken & Rice Recipe Dog Treats is ordered most in "dog food care" with 30 times, and Organic Baby Spinach is ordered most in "packaged vegetables fruits" with 9784 times.
 
 ```{r Mean hour of the day}
 mean_hour_of_day_table = 
@@ -173,6 +174,7 @@ mean_hour_of_day_table =
   summarise(mean_hour_of_a_day = mean(order_hour_of_day)) %>%
   spread(key = order_dow, value = mean_hour_of_a_day) %>%
   `colnames<-`(c("Product Name", "Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"))
+mean_hour_of_day_table
 ```
 
 Comments: For both Coffee Ice Crean and Pink Lady Apples, Sunday and Saturday have the highest mean order hour within this week. Generally speaking, Coffee Ice Cream has a longer order hour than Pink Lady Appples on each day of this week.
@@ -211,7 +213,7 @@ ny_noaa %>%
     filter(n_value == max(n_value))
 ```
 
-* The most observed temperature for snawfall is 0, because 0 is the melting point for ice. It would lasts for a longer time than other temperatures.
+* The most observed value for snawfall is 0, because this value is highly associated with temperature.  When temperature is relatively high, the snowfall value would be reduced and eventually to 0.
 
 ```{r two-panel plot for tmax in Janurary and July}
 ny_noaa %>%
