@@ -60,7 +60,7 @@ In 2002, there 3 states observed in 7 locations. They are Connecticut (CT), Flor
 ```{r Spaghetti plot}
 brfss_smart2010 %>%
   group_by(locationabbr, year) %>%
-  summarise(n_observation = sum(sample_size)) %>%
+  summarise(n_observation = n()) %>%
   ggplot(aes(x = year, y = n_observation, color = locationabbr)) +
   geom_line(alpha = 0.5) +
   labs(
